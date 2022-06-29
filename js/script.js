@@ -14,6 +14,7 @@ const notes = localData || [];
 
 notes.sort()
 
+
 elNotesList.addEventListener("click", (e) => {
     const deleteBtnId = Number(e.target.dataset.deleteBtnId);
     const foundIndex = notes.findIndex(note => note.id === deleteBtnId);
@@ -21,13 +22,13 @@ elNotesList.addEventListener("click", (e) => {
     if(e.target.matches(".delete-btn")) {
         notes.splice(foundIndex, 1);
 
-
         window.localStorage.setItem("notes", JSON.stringify(notes));
         renderNotes(notes, elNotesList);
     } else if (notes.length === 0){
         window.localStorage.removeItem("todos")
     }
 })
+
 
 const renderNotes = function (arr, htmlElement){
     arr.forEach((note) => {
@@ -55,6 +56,7 @@ const renderNotes = function (arr, htmlElement){
             newDate.textContent = `Bu habar ${now.getHours()}:${now.getMinutes()} da yozilgan`
             clearInterval(timer)
         }, 1000)
+
 
         newDeleteBtn.dataset.deleteBtnId = note.id
 
@@ -100,6 +102,7 @@ elModalBtn.addEventListener("click", (e) => {
 
     elModalInput.value =  null
     elModalTextarea.value = null
+    elNotesList.innerHTML = null
 
     renderNotes(notes, elNotesList )
 })
